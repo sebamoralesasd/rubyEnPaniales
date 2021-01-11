@@ -8,5 +8,25 @@ To get started with TDD, see the `README.md` file in your
 
 class Luhn
   def self.valid?(string)
+    newString = string.gsub(/\s+/, "")
+
+    if (newString =~ /[^0-9]/) != nil || newString.length <= 1
+      return false
+    end
+
+    cardNumbers = newString.split(//).map {|ch| ch.to_i }
+
+    # Si la cantidad de números es par, entonces la cifra más
+    # significativa tiene posición impar
+    isFirstDigitIndexEven = cardNumbers.length % 2
+
+    cardNumbers.each_index { |index| 
+      if (index + isFirstDigitIndexEven) % 2 == 0
+        newValue = cardNumbers[index] * 2
+        cardNumbers[index] = newValue > 9 ? newValue - 9 : newValue
+      end
+    }
+
+    return cardNumbers.reduce(:+) % 10 == 0
   end
 end
