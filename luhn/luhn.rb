@@ -8,7 +8,7 @@ To get started with TDD, see the `README.md` file in your
 
 # Clase Luhn
 class Luhn
-  def getCardNumbers(string)
+  def self.getCardNumbers(string)
     cardNumbers = string.split(//).map(&:to_i)
 
     # Si la cantidad de números es par, entonces la cifra más
